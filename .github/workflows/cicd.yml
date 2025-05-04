@@ -36,8 +36,6 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.GITHUB_RSA }}" > ~/.ssh/github_rsa
           chmod 400 ~/.ssh/github_rsa
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/github_rsa
 
       - name: Upload jar to remote server
         uses: appleboy/scp-action@master
