@@ -29,7 +29,7 @@ jobs:
         run: mvn test
 
       - name: Run SonarQube # 소나큐브 테스트 실행
-        run: mvn sonar:sonar -Dsonar.projectKey=E2BS-gateway -Dsonar.host.url=${{secrets.SONAR_HOST}} -Dsonar.login=${{secrets.SONAR_TOKEN}}
+        run: mvn sonar:sonar -Dsonar.projectKey=E2BS-gateway -Dsonar.projectName=E2BS-gateway -Dsonar.host.url=${{secrets.SONAR_HOST}} -Dsonar.login=${{secrets.SONAR_TOKEN}}
 
       - name: Set SSH key # SSH 키 서버 배포
         run: |
