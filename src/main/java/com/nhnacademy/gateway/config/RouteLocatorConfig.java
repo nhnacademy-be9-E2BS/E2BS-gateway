@@ -26,6 +26,10 @@ public class RouteLocatorConfig {
 				p -> p.path("/account").and()
 					.uri("lb://ACCOUNT-SERVICE")
 			)
+			// 메인 화면 띄우기
+			.route("front",
+				p -> p.path("/index").and()
+					.uri("lb://FRONT"))
 			.build();
 	}
 }
