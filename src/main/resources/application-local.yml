@@ -1,0 +1,4 @@
+# 로컬 단일 실행용, 기본 8080 포트
+eureka:
+  client:
+    enabled: false
