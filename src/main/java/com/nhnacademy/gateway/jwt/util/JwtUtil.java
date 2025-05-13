@@ -64,9 +64,7 @@ public class JwtUtil {
 	 * 특정 토큰의 시크릿 키로 사용하고자할 때, Keys 클래스의 정적 메서드를 이용하여 Key 객체를 반환한다
 	 */
 	public Key getSigningKey(String secretKey) {
-		String encodeKey = encodeToBase64(secretKey);
-
-		return Keys.hmacShaKeyFor(encodeKey.getBytes(StandardCharsets.UTF_8));
+		return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 	}
 
 	/**
