@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.nhnacademy.gateway.jwt.rule.JwtRule;
 import com.nhnacademy.gateway.jwt.status.TokenStatus;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.Cookie;
@@ -23,6 +24,24 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class JwtUtil {
+
+	/**
+	 * JWT Token에서 MemberId 값 추출하는 메서드
+	 */
+	public String getMemberId(String token, Key secretKey) {
+		try {
+			Claims claims = Jwts.parserBuilder()
+				.setSigningKey(secretKey)
+				.build()
+				.parseClaimsJws(token)
+				.getBody();
+
+			return claims.get("MemberId", String.class);
+
+		} catch (JwtException e) {
+			return null;
+		}
+	}
 
 	/**
 	 * 검사하고자 하는 Token과 SecretKey를 전달받아, 해당 토큰의 유효 기간이 지나지 않았고 유효한지 여부를 파악한다
