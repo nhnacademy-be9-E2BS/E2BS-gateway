@@ -15,21 +15,26 @@ public class RouteLocatorConfig {
 	 * .and() 이 이외의 추가 조건을 붙일 때
 	 * .uri("lb://ACCOUNT-SERVICE") ACCOUNT-SERVICE 라는 이름의 API에 로드 밸런싱으로 요청을 보낸다.(유레카에 등록된 이름을 써야 한다.)
 	 * */
-
 	@Bean
 	public RouteLocator myRoute(RouteLocatorBuilder builder) {
 
-		RouteLocator routeLocator = builder.routes().build();
-
-		return builder.routes()
-			.route("account-service",
-				p -> p.path("/account").and()
-					.uri("lb://ACCOUNT-SERVICE")
+		RouteLocator routeLocator = builder.routes()
+			.route("auth-path", p->p
+				.path("/api/auth/**")
+				.uri("lb://AUTH")
 			)
-			// 메인 화면 띄우기
-			.route("front",
-				p -> p.path("/index").and()
-					.uri("lb://FRONT"))
+
+			.route("back-path", p->p
+				.predicate(c->c
+					.getRequest().getURI().getPath().startsWith("/api")
+					&& !c.getRequest().getURI().getPath().startsWith("/api/auth")
+				)
+				.uri("lb://BACK")
+			)
+
 			.build();
+
+		return routeLocator;
+
 	}
 }
