@@ -16,3 +16,9 @@ management:
     web:
       exposure:
         include: "*" # Actuator 의 모든 엔드포인트를 웹에서 노출 (운영환경에선 최소화 필요)
+
+jwt:
+  access-secret: secretkeysecretkeysecretkeysecretkeysecretkeysecretkey # HMAC-SHA256 방식의 JWT 서명을 위한 비밀키로 사용되는 서명용 문자열이다
+  refresh-secret: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
+  access-expiration: 600000 # 10 min: 10min * 60 sec * 1000 millisecond
+  refresh-expiration: 10800000 # 10800000 3 hours: 3hours * 60min * 60sec * 1000 millisecond
