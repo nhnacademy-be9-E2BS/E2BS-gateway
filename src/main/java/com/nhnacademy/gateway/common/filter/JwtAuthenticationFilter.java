@@ -1,19 +1,14 @@
 package com.nhnacademy.gateway.common.filter;
 
-import java.util.List;
 import java.util.Objects;
-
-import javax.security.sasl.AuthenticationException;
 
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.nhnacademy.gateway.jwt.dto.request.RequestJwtTokenDTO;
 import com.nhnacademy.gateway.jwt.rule.JwtRule;
 import com.nhnacademy.gateway.jwt.status.TokenStatus;
 import com.nhnacademy.gateway.jwt.properties.JwtProperties;
@@ -30,8 +25,6 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
 	private final JwtUtil jwtUtil;
 	private final JwtProperties jwtProperties;
-
-	private final RedisTemplate<String, String> redisTemplate;
 
 	/**
 	 * 경로가 /api/auth 로 시작하면 chain.filter()
