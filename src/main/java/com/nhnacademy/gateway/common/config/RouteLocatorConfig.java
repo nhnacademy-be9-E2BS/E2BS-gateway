@@ -18,14 +18,14 @@ public class RouteLocatorConfig {
 	@Bean
 	public RouteLocator myRoute(RouteLocatorBuilder builder) {
 
-		RouteLocator routeLocator = builder.routes()
-			.route("auth-path", p->p
+		return builder.routes()
+			.route("auth-path", p -> p
 				.path("/api/auth/**")
 				.uri("lb://AUTH")
 			)
 
-			.route("back-path", p->p
-				.predicate(c->c
+			.route("back-path", p -> p
+				.predicate(c -> c
 					.getRequest().getURI().getPath().startsWith("/api")
 					&& !c.getRequest().getURI().getPath().startsWith("/api/auth")
 				)
@@ -33,8 +33,6 @@ public class RouteLocatorConfig {
 			)
 
 			.build();
-
-		return routeLocator;
 
 	}
 }

@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,10 +14,10 @@ import com.nhnacademy.gateway.jwt.status.TokenStatus;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.Cookie;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -57,7 +58,7 @@ public class JwtUtil {
 
 			return claims.get("Role", List.class);
 		} catch (JwtException e) {
-			return null;
+			return Collections.emptyList();
 		}
 
 	}
@@ -67,17 +68,15 @@ public class JwtUtil {
 	 */
 	public Claims getClaimsIfExpired(String token, Key secretKey) {
 		try {
-			Claims claims = Jwts.parserBuilder()
+			return Jwts.parserBuilder()
 				.setSigningKey(secretKey)
 				.build()
 				.parseClaimsJws(token)
 				.getBody();
-
-			return claims;
 		} catch (ExpiredJwtException e) {
 			return e.getClaims();
 		} catch (JwtException e) {
-			return null;
+			throw new JwtException("Expired or invalid JWT token");
 		}
 	}
 
@@ -104,7 +103,7 @@ public class JwtUtil {
 	 */
 	public TokenStatus getTokenStatus(String token, Key secretKey) {
 		try {
-			if(token == null || token.trim().isEmpty()) {
+			if (token == null || token.trim().isEmpty()) {
 				return TokenStatus.INVALID;
 			}
 
@@ -114,11 +113,9 @@ public class JwtUtil {
 				.parseClaimsJws(token); // 여기에서 파싱이 되면 유효한 토큰이다
 
 			return TokenStatus.AUTHENTICATED;
-		}
-		catch(ExpiredJwtException e) {
+		} catch (ExpiredJwtException e) {
 			return TokenStatus.EXPIRED;
-		}
-		catch(JwtException e) {
+		} catch (JwtException e) {
 			return TokenStatus.INVALID;
 		}
 	}
