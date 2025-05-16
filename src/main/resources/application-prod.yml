@@ -4,7 +4,7 @@ eureka:
     fetch-registry: true # Eureka에서 다른 서비스 정보를 받아올지 여부
     register-with-eureka: true # 현재 애플리케이션을 Eureka에 등록할지 여부
     service-url:
-      defaultZone: https://admin:1234@s1.java21.net:10230/eureka # 로컬 Eureka 서버의 주소
+      defaultZone: http://admin:1234@s1.java21.net:10230/eureka # 로컬 Eureka 서버의 주소
   instance:
     prefer-ip-address: true # 서비스 등록 시 도메인 대신 IP 주소로 등록
 
