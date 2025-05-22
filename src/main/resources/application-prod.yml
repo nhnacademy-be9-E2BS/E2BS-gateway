@@ -1,6 +1,7 @@
 # 실서비스 서버
 eureka:
   client:
+    registry-fetch-interval-seconds: 5  # default is 30
     fetch-registry: true # Eureka에서 다른 서비스 정보를 받아올지 여부
     register-with-eureka: true # 현재 애플리케이션을 Eureka에 등록할지 여부
     service-url:
