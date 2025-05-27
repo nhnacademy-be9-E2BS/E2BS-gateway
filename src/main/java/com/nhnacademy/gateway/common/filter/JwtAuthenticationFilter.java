@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
+	private static final String AUTH_PATH = "/api/auth/**";
 
 	private final JwtUtil jwtUtil;
 	private final JwtProperties jwtProperties;
@@ -45,7 +46,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		String path = exchange.getRequest().getURI().getPath();
 
-		if(path.startsWith("/api/auth") || path.equals("/api/login") || path.equals("/api/register") || path.equals("/api/categories") || path.equals("/api/categories/*")) {
+		if(!isAuthPath(path)) {
 			return chain.filter(exchange);
 		}
 
@@ -72,5 +73,9 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 	@Override
 	public int getOrder() {
 		return -1;
+	}
+
+	private boolean isAuthPath(String path) {
+		return path.startsWith(AUTH_PATH);
 	}
 }
