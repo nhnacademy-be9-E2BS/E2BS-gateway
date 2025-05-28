@@ -19,15 +19,15 @@ public class RouteLocatorConfig {
 	public RouteLocator myRoute(RouteLocatorBuilder builder) {
 
 		return builder.routes()
-			.route("auth-path", p -> p
-				.path("/api/auth/**")
+			.route("auth-server-path", p -> p
+				.path("/api/token/**")
 				.uri("lb://AUTH")
 			)
 
-			.route("back-path", p -> p
+			.route("back-server-path", p -> p
 				.predicate(c -> c
 					.getRequest().getURI().getPath().startsWith("/api")
-					&& !c.getRequest().getURI().getPath().startsWith("/api/auth")
+					&& !c.getRequest().getURI().getPath().startsWith("/api/token")
 				)
 				.uri("lb://BACK")
 			)
