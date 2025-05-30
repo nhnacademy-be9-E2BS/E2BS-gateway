@@ -24,8 +24,8 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
-	private static final String AUTH_PATH = "/api/auth/**";
-	private static final String TOKEN_PATH = "/api/token/**";
+	private static final String AUTH_PATH = "/api/auth";
+	private static final String TOKEN_PATH = "/api/token";
 
 	private final JwtUtil jwtUtil;
 	private final JwtProperties jwtProperties;
