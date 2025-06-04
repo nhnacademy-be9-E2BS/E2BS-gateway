@@ -12,8 +12,13 @@ eureka:
   instance:
     prefer-ip-address: true # 서비스 등록 시 도메인 대신 IP 주소로 등록
 
-auth:
-  jwt:
-    create:
-      url:
-        http://localhost:10232/api/auth
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace # SQL 파라미터 바인딩 로그를 trace 레벨로 출력
+    org.springframework.transaction.interceptor: trace # 트랜잭션 처리 로그를 trace 로 출력
+
+jwt:
+  access-secret: secretkeysecretkeysecretkeysecretkeysecretkeysecretkey # HMAC-SHA256 방식의 JWT 서명을 위한 비밀키로 사용되는 서명용 문자열이다
+  refresh-secret: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
+  access-expiration: 600000 # 10 min: 10min * 60 sec * 1000 millisecond
+  refresh-expiration: 10800000 # 10800000 3 hours: 3hours * 60min * 60sec * 1000 millisecond
