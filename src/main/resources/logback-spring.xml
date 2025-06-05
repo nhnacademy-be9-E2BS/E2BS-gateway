@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <!-- logback-spring.xml 파일은 별도의 설정 없이도 코드만 작성해 놓으면 자동으로 빌드 -->
+    <!-- resources/ 폴더 아래에 logback-spring.xml 파일이 있으면 자동으로 감지해서 해당 설정을 우선적으로 적용한다 -->
+
+    <!-- 로그 레벨 지정 -->
+    <property name="LOG_LEVEL" value="INFO"/> <!-- 로그 레벨 지정 -->
+    <property name="LOG_PATH" value="logs"/>  <!-- 로그 경로 지정 -->
+    <property name="LOG_FILE_NAME" value="app.log"/> <!-- 파일 이름 지정 -->
+
+    <!-- 콘솔 출력 -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender"> <!-- 로그를 콘솔(터미널)에 출력 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern> <!-- 로그 포맷 지정 -->
+        </encoder>
+    </appender>
+
+    <!-- 파일 출력 -->
+    <appender name="File"
+              class="ch.qos.logback.core.rolling.RollingFileAppender"> <!-- RollingFileAppender: 로그를 파일로 저장 -->
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!-- TimeBaseRollingPolicy: 날짜 별로 로그 파일 분리 -->
+            <fileNamePattern>${LOG_PATH}/app.%d{yyyy-MM-dd}.log</fileNamePattern> <!-- 파일 이름 ex) logs/app.2025-06-01.log 날짜 별로 로그 파일 분리 -->
+            <maxHistory>30</maxHistory> <!-- 로그 보관일 수 -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 루트 로거 설정 -->
+    <root level="${LOG_LEVEL}"> <!-- 로그 레벨이 INFO 이상만 출력 -->
+        <appender-ref ref="Console"/> <!-- 콘솔에 출력 -->
+        <appender-ref ref="File"/> <!-- 파일에 출력 -->
+    </root>
+
+</configuration>
