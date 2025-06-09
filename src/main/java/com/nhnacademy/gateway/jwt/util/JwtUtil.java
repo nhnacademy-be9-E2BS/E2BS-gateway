@@ -116,7 +116,7 @@ public class JwtUtil {
 		} catch (ExpiredJwtException e) {
 			return TokenStatus.EXPIRED;
 		} catch (JwtException e) {
-			return TokenStatus.INVALID;
+			throw new JwtException("유효하지 않은 토큰입니다.");
 		}
 	}
 
