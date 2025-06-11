@@ -46,6 +46,9 @@ class JwtAuthenticationFilterTest {
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 
 		// Then
+		Mono<Void> result = filter.filter(exchange, chain);
+		result.block();
+
 		verify(chain, times(1)).filter(exchange);
 
 	}
@@ -63,6 +66,9 @@ class JwtAuthenticationFilterTest {
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 
 		// Then
+		Mono<Void> result = filter.filter(exchange, chain);
+		result.block();
+
 		verify(chain, times(1)).filter(exchange);
 
 	}
@@ -88,6 +94,9 @@ class JwtAuthenticationFilterTest {
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 
 		// Then
+		Mono<Void> result = filter.filter(exchange, chain);
+		result.block();
+
 		verify(chain, times(1)).filter(exchange);
 
 	}
