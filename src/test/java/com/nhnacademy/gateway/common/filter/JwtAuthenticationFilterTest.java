@@ -17,7 +17,7 @@ import java.security.Key;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class JwtAuthenticationFilterTest {
+class JwtAuthenticationFilterTest {
 
 	private JwtAuthenticationFilter filter;
 	private JwtUtil jwtUtil;
@@ -45,8 +45,6 @@ public class JwtAuthenticationFilterTest {
 		GatewayFilterChain chain = mock(GatewayFilterChain.class);
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 
-		Mono<Void> result = filter.filter(exchange, chain);
-
 		// Then
 		verify(chain, times(1)).filter(exchange);
 
@@ -65,7 +63,6 @@ public class JwtAuthenticationFilterTest {
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 
 		// Then
-		Mono<Void> result = filter.filter(exchange, chain);
 		verify(chain, times(1)).filter(exchange);
 
 	}
@@ -91,7 +88,6 @@ public class JwtAuthenticationFilterTest {
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 
 		// Then
-		Mono<Void> result = filter.filter(exchange, chain);
 		verify(chain, times(1)).filter(exchange);
 
 	}

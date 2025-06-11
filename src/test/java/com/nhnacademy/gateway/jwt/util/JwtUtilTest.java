@@ -1,7 +1,5 @@
 package com.nhnacademy.gateway.jwt.util;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.security.Key;
 import java.util.Date;
 

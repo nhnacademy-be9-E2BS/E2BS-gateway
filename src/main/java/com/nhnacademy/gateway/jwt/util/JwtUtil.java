@@ -2,22 +2,15 @@ package com.nhnacademy.gateway.jwt.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.nhnacademy.gateway.jwt.rule.JwtRule;
 import com.nhnacademy.gateway.jwt.status.TokenStatus;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 
 /**
